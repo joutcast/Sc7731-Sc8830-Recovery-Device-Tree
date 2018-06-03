@@ -13,8 +13,8 @@
 # limitations under the License.
 
 # Paths
-TREE_PATH := device/Lemon/Lemon_S8
-VENDOR_PATH := vendor/Lemon/Lemon_S8
+TREE_PATH := device/ojji/tc4_k4008
+VENDOR_PATH := vendor/ojji/tc4_k4008
 
 
 
@@ -222,8 +222,8 @@ PRODUCT_PROPERTY_OVERRIDES := \
 	keyguard.no_require_sim=true \
 	ro.com.android.dataroaming=false \
 	ro.sf.lcd_density=200 
-#	ro.product.model=Lemon_S8 
-#	ro.product.device=Lemon_S8 
+#	ro.product.model=tc4_k4008 
+#	ro.product.device=tc4_k4008 
 
 # Languages
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -283,8 +283,8 @@ PRODUCT_COPY_FILES += \
 	$(foreach f,$(PERMISSIONS_XML_FILES),$(f):system/etc/permissions/$(notdir $(f))) \
 
 # Set those variables here to overwrite the inherited values.
-PRODUCT_NAME := full_Lemon_S8
-PRODUCT_DEVICE := Lemon_S8
-PRODUCT_BRAND := Lemon
-PRODUCT_MANUFACTURER := Lemon
-PRODUCT_MODEL := Lemon_S8
+PRODUCT_NAME := tc4_k4008_OJJI_4p4
+PRODUCT_DEVICE := tc4_k4008
+PRODUCT_BRAND := OJJI
+PRODUCT_MANUFACTURER := OJJI
+PRODUCT_MODEL := OJJI
