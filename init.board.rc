@@ -1,68 +1,18 @@
 
-on early-boot
-    chmod 660 /proc/cpgge/wdtirq
-    chmod 660 /proc/cpgge/stop
-    chmod 660 /proc/cpgge/start
-    chmod 660 /proc/cpgge/modem
-    chmod 660 /proc/cpgge/dsp
+import /init.storage.rc
 
-    chown system root /proc/cpgge/wdtirq
-    chown system root /proc/cpgge/stop
-    chown system root /proc/cpgge/start
-    chown system root /proc/cpgge/modem
-    chown system root /proc/cpgge/dsp
-
-    chmod 660 /proc/cptl/wdtirq
-    chmod 660 /proc/cptl/stop
-    chmod 660 /proc/cptl/start
-    chmod 660 /proc/cptl/modem
-    chmod 660 /proc/cptl/tgdsp
-    chmod 660 /proc/cptl/ldsp
-    chmod 660 /proc/cptl/warm
-    chmod 660 /proc/cptl/fixnv
-    chmod 660 /proc/cptl/runnv
-
-    chown system root /proc/cptl/wdtirq
-    chown system root /proc/cptl/stop
-    chown system root /proc/cptl/start
-    chown system root /proc/cptl/modem
-    chown system root /proc/cptl/ldsp
-    chown system root /proc/cptl/tgdsp
-    chown system root /proc/cptl/warm
-    chown system root /proc/cptl/fixnv
-    chown system root /proc/cptl/runnv
-
-on post-fs-data
-    mkdir /data/local/tmp/slogmodem 0770 shell system
-    mkdir /data/modem_log 0770 shell system
+# add for board-relative touch screen driver for
+# alarm mode and normal mode.
+on post-fs
+    insmod /system/lib/modules/focaltech_ts.ko
 
 on boot
-    insmod /lib/modules/focaltech_ts.ko
-
-    chmod 666 /dev/ttyS0
     chmod 660 /proc/bluetooth/sleep/proto
     chmod 660 /sys/class/rfkill/rfkill0/state
     chmod 660 /sys/class/rfkill/rfkill0/type
-    chmod 660 /proc/bluetooth/sleep/btwrite
-    chmod 660 /sys/devices/70000000.uart/uart_conf
     chown bluetooth bluetooth /sys/class/rfkill/rfkill0/state
     chown bluetooth bluetooth /sys/class/rfkill/rfkill0/type
-    chown bluetooth net_bt_stack /proc/bluetooth/sleep/proto
-    chown bluetooth net_bt_stack /proc/bluetooth/sleep/btwrite
-    chown bluetooth net_bt_stack /sys/devices/70000000.uart/uart_conf
-    chown media system /sys/class/flash_test/flash_test/flash_value
-
-    chown bluetooth shell /productinfo/connectivity_configure.ini
-    chown bluetooth bluetooth /system/etc/connectivity_configure.ini
-    chmod 666 /productinfo/connectivity_configure.ini
-    chmod 666 /system/etc/connectivity_configure.ini
-
-    chown wifi shell /productinfo/connectivity_calibration.ini
-    chown wifi wifi /system/etc/connectivity_calibration.ini
-    chmod 660 /productinfo/connectivity_calibration.ini
-    chmod 660 /system/etc/connectivity_calibration.ini
-
-
+    chown bluetooth system /proc/bluetooth/sleep/proto
     mkdir /data/misc/wifi 0770 wifi wifi
     mkdir /data/misc/wifi/sockets 0770 wifi wifi
     mkdir /data/misc/wifi/wpa_supplicant 0770 wifi wifi
@@ -73,29 +23,69 @@ on boot
     chown wifi wifi /data/misc/wifi/fwpath
     rmdir /data/system/wpa_supplicant
     mkdir /data/misc/dhcp 0770 dhcp dhcp
-    #to observe dnsmasq.leases file for dhcp information
-    chown dhcp system /data/misc/dhcp
+    chown dhcp dhcp /data/misc/dhcp
     setprop wifi.interface wlan0
     mkdir /data/misc/dhcp6c 0770 dhcp dhcp
     chown dhcp system /data/misc/dhcp6c
+
+    chown bluetooth shell /productinfo/connectivity_configure.ini
+    chown bluetooth bluetooth /system/etc/connectivity_configure.ini
+    chmod 666 /productinfo/connectivity_configure.ini
+    chmod 666 /system/etc/connectivity_configure.ini
+		chown system system /sys/class/flash_test/flash_test/flash_value
+    chown wifi shell /productinfo/connectivity_calibration.ini
+    chown wifi wifi /system/etc/connectivity_calibration.ini
+    chmod 660 /productinfo/connectivity_calibration.ini
+    chmod 660 /system/etc/connectivity_calibration.ini
 
     mkdir /data/cg/ 0777 system system
     mkdir /data/cg/online 0777 system system
     mkdir /data/cg/supl 0777 system system
     chmod 660 /dev/ttyV1
     chmod 660 /dev/ttyV0
+    chown system system /dev/ap3212c_pls
+    chmod 660 /dev/ap3212c_pls
+    chown system system /dev/ft_proximity
+    chmod 777 /dev/ft_proximity
+    chown system system /dev/mir3da
+    chmod 660 /dev/mir3da
+    chown system system /dev/gsensor
+    chmod 660 /dev/gsensor
+    chown system system /dev/mc3xxx
+    chmod 660 /dev/mc3xxx
     chmod 777 /system/etc/GPSenseEngine.xml
-    chmod 777 /data/cg/online/HiMap.db
-    chmod 777 /data/cg/online/Almanac.cg
+    chmod 777 /system/etc/HiMap.db
     chmod 777 /system/bin/GPSenseEngine
     setprop gps.port ttyV1
 
-service download /system/bin/download
-    class core
-    user system
-    group system shell wifi bluetooth
-    oneshot
+    chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies
+    chown system system /sys/devices/system/cpu/cpufreq/sprdemand/cpu_hotplug_disable
+    chown system system /sys/devices/system/cpu/cpu0/online
+    chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+    chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_setspeed
+    chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq
+    chown system system /sys/devices/system/cpu/cpuhotplug/cpu_hotplug_disable
+    chown system system /sys/devices/system/cpu/cpu4/cpufreq/scaling_governor
+    chmod 0660 /sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies
+    chmod 0660 /sys/devices/system/cpu/cpufreq/sprdemand/cpu_hotplug_disable
+    chmod 0660 /sys/devices/system/cpu/cpu0/online
+    chmod 0660 /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+    chmod 0660 /sys/devices/system/cpu/cpu0/cpufreq/scaling_setspeed
+    chmod 0660 /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq
+    chmod 0660 /sys/devices/system/cpu/cpuhotplug/cpu_hotplug_disable
+    chmod 0660 /sys/devices/system/cpu/cpu4/cpufreq/scaling_governor
 
+# Create cgroup mount point for blkio 
+    mkdir /sys/fs/cgroup/blkio 0750 root system
+    mount cgroup none /sys/fs/cgroup/blkio blkio
+    write /sys/fs/cgroup/blkio/blkio.weight 300 
+    chown root system /sys/fs/cgroup/blkio/cgroup.procs
+    chmod 0660 /sys/fs/cgroup/blkio/cgroup.procs
+    mkdir /sys/fs/cgroup/blkio/high 0750 root system
+    write /sys/fs/cgroup/blkio/high/blkio.weight 700 
+    chown root system /sys/fs/cgroup/blkio/high/cgroup.procs
+    chmod 0660 /sys/fs/cgroup/blkio/high/cgroup.procs
+    
 service GPSenseEngine /system/bin/GPSenseEngine
      class main
      user root
@@ -126,6 +116,13 @@ service pbap /system/bin/sdptool add --channel=19 PBAP
     disabled
     oneshot
 
+#service hciattach /system/bin/hciattach -n /dev/sttybt0 sprd_shark
+#    socket bluetooth stream 660 bluetooth bluetooth
+#    user bluetooth
+#    group wifi bluetooth net_bt_admin net_bt inet net_raw net_admin system
+#    disabled
+#    oneshot
+
 service btld  /system/bin/btld -lpm 0 -hb 3000000
     user root
     group bluetooth net_bt_admin
@@ -135,6 +132,10 @@ service btld  /system/bin/btld -lpm 0 -hb 3000000
 service p2p_supplicant /system/bin/wpa_supplicant \
     -iwlan0 -Dnl80211 -c/data/misc/wifi/wpa_supplicant.conf -I/system/etc/wifi/wpa_supplicant_overlay.conf -N \
     -ip2p0 -Dnl80211 -c/data/misc/wifi/p2p_supplicant.conf -e/data/misc/wifi/entropy.bin -g@android:wpa_wlan0 -dd
+    #   we will start as root and wpa_supplicant will switch to user wifi
+    #   after setting up the capabilities required for WEXT
+    #   user wifi
+    #   group wifi inet keystore
     class main
     socket wpa_wlan0 dgram 660 wifi wifi
     disabled
@@ -153,11 +154,6 @@ service dhcpcd_wlan0 /system/bin/dhcpcd -ABKL
     oneshot
 
 service dhcpcd_p2p /system/bin/dhcpcd -ABKL
-    group system dhcp
-    disabled
-    oneshot
-
-service dhcpcd_ipv6 /system/bin/dhcpcd -6ABKL
     group system dhcp
     disabled
     oneshot
@@ -188,28 +184,34 @@ service dhcpcd_bt-pan /system/bin/dhcpcd -BKLG
    disabled
    oneshot
 
-service dhcp6c_wifi /system/bin/dhcp6c -c /data/misc/dhcp6c/dhcp6c.conf
+
+service iprenew_bt-pan /system/bin/dhcpcd -n
     disabled
     oneshot
 
-service iprenew_bt-pan /system/bin/dhcpcd -n
+on property:dhcp.wlan0.start_dhcp6c=true
+    start dhcp6c_wlan0
+on property:dhcp.wlan0.start_dhcp6c=false
+    stop dhcp6c_wlan0
+service dhcp6c_wlan0 /system/bin/dhcp6c -c /data/misc/dhcp6c/dhcp6c.conf wlan0
+    disabled
+    oneshot
+
+service engpcclientw /system/bin/engpc -p w -a /dev/ttyGS0 -d /dev/ttyGS1
+    class core
+    user root
+    group system radio shell
+    disabled
+    oneshot
+
+service engpcclientwcn /system/bin/engpc -p wcn -a /dev/ttyGS2 -d /dev/ttyGS3
+    class core
+    user root
+    group system radio shell
     disabled
     oneshot
 
 service slogmodem /system/bin/slogmodem
     class main
     user shell
-    group system sdcard_rw media_rw
-
-on alarm
-    insmod /lib/modules/focaltech_ts.ko
-
-service healthd-charger /sbin/healthd -c
-    class charger
-    critical
-    seclabel u:r:healthd:s0
-
-
-# chown for engineermode
-chown system system /sys/module/smsg/parameters/assert_trigger
-chown system system /sys/power/avs_log
+    group system sdcard_r
