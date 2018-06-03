@@ -1,8 +1,8 @@
 
 
 # Paths
-TREE_PATH := device/Lemon/Lemon_S8
-VENDOR_PATH := vendor/Lemon/Lemon_S8
+TREE_PATH := device/ojji/tc4_k4008
+VENDOR_PATH := vendor/ojji/tc4_k4008
 KERNEL_PATH := kernel/sprd
 
 # JACK
@@ -149,7 +149,7 @@ TARGET_SCREEN_HEIGHT := 854
 TARGET_SCREEN_WIDTH := 480
 
 # Assert
-TARGET_OTA_ASSERT_DEVICE := Lemon_S8,S8,sc7731c,Lemon
+TARGET_OTA_ASSERT_DEVICE := tc4_k4008,k4008,sc7731c,Nitro,Maxx
 
 # ota block
 BLOCK_BASED_OTA := false
@@ -158,7 +158,7 @@ BLOCK_BASED_OTA := false
 WITH_SU := true
 
 #Recovery
-RECOVERY_VARIANT := philz
+RECOVERY_VARIANT := TWRP
 NUM_FRAMEBUFFER_SURFACE_BUFFERS	:= 3
 BOARD_RECOVERY_NEEDS_FBIOPAN_DISPLAY := true
 TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
