@@ -18,4 +18,4 @@
 #
 
 PRODUCT_MAKEFILES := \
-	$(TREE_PATH)/Lemon_S8.mk
+	$(TREE_PATH)/tc4_k4008.mk
