@@ -19,5 +19,5 @@
 # function: add_lunch_combo generic-eng
 
 for i in userdebug; do
-add_lunch_combo cm_Lemon_S8-${i};
+add_lunch_combo tc4_k4008-${i};
 done
